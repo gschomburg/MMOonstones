@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><style>body{margin:0;background:#000}canvas{image-rendering:pixelated}</style></head><body>
+<canvas id="screen"></canvas><pre id="log" style="color:#0f0;background:#000;font:13px monospace;margin:0;white-space:pre-wrap"></pre>
+<script>window.onerror=(m,s,l,c)=>{document.getElementById('log').textContent+='ERR '+m+' @'+s+':'+l+':'+c+'\n';};</script>
+<script src="../src/font.js"></script>
+<script src="../src/rig.js"></script>
+<script src="../src/characters.js"></script>
+<script src="../src/game.js"></script>
+<script>
+const L=(s)=>document.getElementById('log').textContent+=s+'\n';
+const kd=c=>dispatchEvent(new KeyboardEvent('keydown',{code:c})), ku=c=>dispatchEvent(new KeyboardEvent('keyup',{code:c}));
+const tap=(c,n=1)=>{kd(c);GAME.step(1);ku(c);GAME.step(n-1);};
+const g=GAME, p=()=>g.player, e=()=>g.enemy;
+const st=()=>`P x${p().x.toFixed(0)} y${p().y.toFixed(0)} hp${p().hp} ${p().state} | T x${e().x.toFixed(0)} y${e().y.toFixed(0)} hp${e().hp} ${e().state}`;
+const s=new URLSearchParams(location.search).get('s'), at=+new URLSearchParams(location.search).get('t')||0;
+tap('KeyB');
+if(s==='chop'){ kd('ArrowRight'); GAME.step(70); ku('ArrowRight'); GAME.step(5); L(st());
+  // align depth with troll
+  for(let i=0;i<200 && Math.abs(e().y-p().y)>2;i++){ const c=e().y>p().y?'ArrowDown':'ArrowUp'; kd(c); GAME.step(1); ku(c);} L('aligned '+st());
+  for(let i=0;i<300 && Math.abs(e().x-p().x)>26;i++){ kd('ArrowRight'); GAME.step(1); ku('ArrowRight'); } L('close '+st());
+  tap('KeyK', at||18); L('after chop '+st());
+}
+if(s==='kill'){ // god-mode player, attack until troll dies
+  let n=0; while(e().state!=='dead' && n<3000){ p().hp=100;
+    const dy=e().y-p().y, dx=e().x-p().x;
+    if(Math.abs(dy)>2){const c=dy>0?'ArrowDown':'ArrowUp';kd(c);GAME.step(1);ku(c);n++;continue;}
+    if(Math.abs(dx)>28){const c=dx>0?'ArrowRight':'ArrowLeft';kd(c);GAME.step(1);ku(c);n++;continue;}
+    if(Math.sign(dx)!==p().facing){const c=dx>0?'ArrowRight':'ArrowLeft';kd(c);GAME.step(1);ku(c);n++;continue;}
+    tap(['KeyJ','KeyK','KeyL'][n%3], 25); n+=25; }
+  L('ticks '+n+' '+st()+' headless='+e().headless+' kills='+g.kills);
+  GAME.step(at||20); L('after '+st());
+}
+</script></body></html>

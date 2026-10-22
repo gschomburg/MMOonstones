@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonstone Combat Prototype</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #07060d; color: #b8b0d0; font: 13px/1.5 monospace; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; box-shadow: 0 0 0 2px #1d1830; }
+  .keys { display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center; max-width: 1100px; padding: 0 16px; }
+  .keys b { color: #e8d48a; font-weight: normal; }
+</style>
+</head>
+<body>
+<canvas id="screen"></canvas>
+<div class="keys">
+  <span><b>Arrows / WASD</b> move</span>
+  <span><b>J / Z</b> slash</span>
+  <span><b>K / X</b> overhead chop (breaks guard)</span>
+  <span><b>L / C</b> thrust</span>
+  <span><b>Shift / I / V</b> hold to block</span>
+  <span><b>B</b> hitboxes</span>
+  <span><b>T</b> slow-mo</span>
+  <span><b>P</b> export sprite sheets</span>
+  <span><b>R</b> restart</span>
+</div>
+<script src="src/font.js"></script>
+<script src="src/rig.js"></script>
+<script src="src/characters.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>

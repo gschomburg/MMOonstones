@@ -1,0 +1,10 @@
+<!doctype html><html><body style="margin:0;background:#3a3550">
+<canvas id="screen" style="display:none"></canvas><canvas id="out" style="image-rendering:pixelated"></canvas>
+<script src="../src/font.js"></script>
+<script src="../src/rig.js"></script>
+<script src="../src/characters.js"></script>
+<script>
+const k=new URLSearchParams(location.search).get('c')||'knight';
+const sh=MS.Rig.sheet(MS.CHARS[k].spec), o=document.getElementById('out'), sc=k==='knight'?3:2.5;
+o.width=sh.width*sc;o.height=sh.height*sc;const x=o.getContext('2d');x.imageSmoothingEnabled=false;x.drawImage(sh,0,0,o.width,o.height);
+</script></body></html>
