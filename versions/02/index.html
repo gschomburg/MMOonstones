@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MMOonstones — shared arena</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #07060d; color: #b8b0d0; font: 13px/1.5 monospace; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  canvas { image-rendering: pixelated; image-rendering: crisp-edges; display: block; box-shadow: 0 0 0 2px #1d1830; }
+  .keys { display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center; max-width: 1100px; padding: 0 16px; }
+  .keys b { color: #e8d48a; font-weight: normal; }
+  #network { width: min(960px, 94vw); max-height: 110px; overflow: auto; }
+  #status { color: #e8d48a; }
+  #roster { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+  .player { white-space: pre; }
+</style>
+</head>
+<body>
+<section id="network" aria-label="Multiplayer status"><div id="status">Connecting to the shared arena…</div><div id="roster"></div><button id="enemies-toggle" type="button" aria-pressed="true" disabled>Enemies: ON (everyone)</button> <button id="friendly-fire-toggle" type="button" aria-pressed="false" disabled>Friendly fire: OFF (everyone)</button></section>
+<canvas id="screen"></canvas>
+<div class="keys">
+  <span><b>Arrows / WASD</b> move</span>
+  <span><b>J / Z</b> slash</span>
+  <span><b>K / X</b> overhead chop (breaks guard)</span>
+  <span><b>L / C</b> thrust</span>
+  <span><b>Shift / I / V</b> hold to block</span>
+  <span><b>B</b> hitboxes</span>
+   <span><b>T</b> slow-mo (offline only)</span>
+  <span><b>P</b> export sprite sheets</span>
+   <span><b>R</b> respawn when fallen</span>
+</div>
+<script src="src/font.js"></script>
+<script src="src/rig.js?v=bestiary-2"></script>
+<script src="src/characters.js?v=bestiary-2"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5.party@0.16.0/dist/p5.party.js"></script>
+<script src="src/sync.js?v=bestiary-2"></script>
+<script src="src/network.js?v=bestiary-2"></script>
+<script src="src/game.js?v=bestiary-2"></script>
+</body>
+</html>
